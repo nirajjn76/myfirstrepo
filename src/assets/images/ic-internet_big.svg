@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="55" viewBox="0 0 64 55">
+  <g id="Group_904" data-name="Group 904" transform="translate(-499 -518)">
+    <rect id="Rectangle_750" data-name="Rectangle 750" width="3" height="38" rx="1.5" transform="translate(499 532.625) rotate(-45)" fill="#ebc57a"/>
+    <rect id="Rectangle_751" data-name="Rectangle 751" width="3" height="38" rx="1.5" transform="translate(560.871 530.504) rotate(45)" fill="#ebc57a"/>
+    <g id="Rectangle_749" data-name="Rectangle 749" transform="translate(499 556)" fill="none" stroke="#ebc57a" stroke-width="3">
+      <rect width="64" height="17" rx="5" stroke="none"/>
+      <rect x="1.5" y="1.5" width="61" height="14" rx="3.5" fill="none"/>
+    </g>
+    <image id="wifi" width="34" height="25" transform="translate(514 518)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAZCAYAAABU+vysAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMCSURBVHgB1VZBbtpAFP1/TNoGZUEXScWq7glCllHUFk5QbgA5AWRHyCKwSZG6CJygyQlCTgBpRLKMe4K4q6iBqlRq0pbY/3fGFMUxtjGuuuiTLJjxzPw3f96bb4SI6J9WsoCYQRSrDJxBgBQD6O4xss9kRBOADCD4xGh1VzbeGVHWx1nBUWgFYMgzcgpiQJGTP907osP0y0Y3ZNxDXHbKqaUnyRLaWA4MzjBEhCGz2r1rMWTdmyUvKQKor2zsHfi8u8d1r1oUjPtTBGRgRjoEGwx7Abrp9YYJIZDrZOTxZIBRHie8RkB9FiGHyFWnoicea++BOetZsw1EreWQlEbB4MN2HjQsyGzlPYQO7kZUT+caJg7Odwpyp013FpwBQg6YsfN5cXVe0TUba4hYcMUybZu3sN+rXsh2RnVKxgYSbUXNgFrY3Y5KXGWINNifHJl0oYkOS8KObB6vbDTKQZMdES8sFpV95dhsiCgNuU2TGY7tEXVV2v0Gfe3UUnZiVCPBb2zBOUcjlxfl1Iu15tBvgnN/aNquj36iAaFt2dQKsu4kduA9EiLgiX27MsqQwP7GJIaawOcyC7p8mZHBp22P3LZ+8VZQhnyJfDmrlpiw9sDGMrh8WlaCDqLYF+UGGKHktS4IqC2v79VnElFCYg2P7uNLIRFvxrXwda9SlGF23YSkvja9l5pvRiZOYqDWTfJnLUg/86B/Wq3JbOyqjd0kf6x51/QlopyUsEAPy4JyUVJbzCKMj8+WTgELzCANKKgjswUN/Y42tOj5BXfqEEExyL7jCuwIsxVGymdeNPgKeBYChBmbSP9sp/PAxspBgAYxnyCT6XSh0DUBq956ImEkRre5p7lwnSUgClubP7KArNMgqH9fum0GCXisL1FUwhxzppNZJObC4LTaHJf3aFCEBr3qEfxvmMs1Xnw+284LECX1nyxqPXv1tg0xEZuIU4seiUt3n0WUS8e8gQXEhKaJ7FSfEDrERGwiiGPbumHTdN8/J+Jc/9LKf6qyfGSJ/4tv298+6Ivrr6/nBQAAAABJRU5ErkJggg=="/>
+  </g>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30" height="34.628" viewBox="0 0 30 34.628">
+  <g id="Group_637" data-name="Group 637" transform="translate(-545 -140.372)">
+    <g id="Path_99" data-name="Path 99" transform="translate(564.336 147.372)" fill="#fff">
+      <path d="M 0.5000002980232239 21.1265754699707 L 0.5000002980232239 -1.165375471115112 L 5.127520084381104 -5.792903423309326 L 5.127520084381104 16.49905395507812 L 0.5000002980232239 21.1265754699707 Z" stroke="none"/>
+      <path d="M 4.627520561218262 -4.585784912109375 L 1.000000476837158 -0.9582653045654297 L 1.000000476837158 19.9194450378418 L 4.627520561218262 16.29192543029785 L 4.627520561218262 -4.585784912109375 M 5.627520084381104 -7.000005722045898 L 5.627520084381104 16.70614433288574 L 4.76837158203125e-07 22.33366394042969 L 4.76837158203125e-07 -1.372486114501953 L 5.627520084381104 -7.000005722045898 Z" stroke="none" fill="#fff"/>
+    </g>
+    <g id="Path_98" data-name="Path 98" transform="translate(545.041 140.372)" fill="#fff">
+      <path d="M 19.08725738525391 5.127520084381104 L 1.20709753036499 5.127520084381104 L 5.834617614746094 0.5000002980232239 L 23.71477699279785 0.5000002980232239 L 19.08725738525391 5.127520084381104 Z" stroke="none"/>
+      <path d="M 6.041736602783203 1.000000476837158 L 2.414216995239258 4.627520561218262 L 18.8801383972168 4.627520561218262 L 22.50765800476074 1.000000476837158 L 6.041736602783203 1.000000476837158 M 5.627517700195312 4.76837158203125e-07 L 24.92187690734863 4.76837158203125e-07 L 19.29435729980469 5.627520084381104 L -1.9073486328125e-06 5.627520084381104 L 5.627517700195312 4.76837158203125e-07 Z" stroke="none" fill="#fff"/>
+    </g>
+    <line id="Line_69" data-name="Line 69" y2="23.706" transform="translate(549.5 146)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_70" data-name="Line 70" y2="23.706" transform="translate(552.5 146)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_71" data-name="Line 71" y2="23.706" transform="translate(555.5 146)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_72" data-name="Line 72" y2="23.706" transform="translate(561.5 146)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_73" data-name="Line 73" x1="19.459" transform="translate(545.041 148.855)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_74" data-name="Line 74" x1="19.459" transform="translate(545.041 151.855)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_75" data-name="Line 75" x1="19.459" transform="translate(545.041 154.855)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_76" data-name="Line 76" x1="19.459" transform="translate(545.041 157.855)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_77" data-name="Line 77" x1="19.459" transform="translate(545.041 160.855)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_81" data-name="Line 81" y2="23.706" transform="translate(545.5 146)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_82" data-name="Line 82" y2="23.706" transform="translate(558.5 146)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_83" data-name="Line 83" x1="19.459" transform="translate(545.041 163.855)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_84" data-name="Line 84" x1="19.459" transform="translate(545.041 166.855)" fill="none" stroke="#fff" stroke-width="1"/>
+    <line id="Line_132" data-name="Line 132" x1="19.459" transform="translate(545.041 169.855)" fill="none" stroke="#fff" stroke-width="1"/>
+    <g id="Group_259" data-name="Group 259" transform="translate(521 -1)">
+      <circle id="Ellipse_30" data-name="Ellipse 30" cx="9.5" cy="9.5" r="9.5" transform="translate(35 157)" fill="#fff"/>
+      <line id="Line_79" data-name="Line 79" y2="13.147" transform="translate(44.682 159.744)" fill="none" stroke="#4b4f57" stroke-width="2"/>
+      <line id="Line_80" data-name="Line 80" y2="13.146" transform="translate(51.256 166.317) rotate(90)" fill="none" stroke="#4b4f57" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

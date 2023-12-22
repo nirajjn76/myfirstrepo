@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="109.938" height="52.054" viewBox="0 0 109.938 52.054">
+  <g id="Component_11_76" data-name="Component 11 – 76" transform="translate(0 0.707)">
+    <g id="Group_2" data-name="Group 2" transform="translate(0 18.409)">
+      <rect id="Rectangle_8" data-name="Rectangle 8" width="109.938" height="32.938" fill="#fff"/>
+      <path id="Union_6" data-name="Union 6" d="M4.3,18.056V14.617H1.719V12.038H0V0H18.056V12.038H16.337v2.579H13.757v3.439Z" transform="translate(8.49 8.49)" fill="#18ce00"/>
+      <path id="Union_7" data-name="Union 7" d="M4.3,18.056V14.617H1.719V12.038H0V0H18.056V12.038H16.337v2.579H13.757v3.439Z" transform="translate(33.49 8.49)" fill="red"/>
+      <path id="Union_8" data-name="Union 8" d="M4.3,18.056V14.617H1.719V12.038H0V0H18.056V12.038H16.337v2.579H13.757v3.439Z" transform="translate(58.49 8.49)" fill="#17ce27"/>
+      <path id="Union_9" data-name="Union 9" d="M4.3,18.056V14.617H1.719V12.038H0V0H18.056V12.038H16.337v2.579H13.757v3.439Z" transform="translate(83.49 8.49)" fill="red"/>
+    </g>
+    <g id="Group_4" data-name="Group 4" transform="translate(-359.591 -666.091)">
+      <line id="Line_3" data-name="Line 3" x2="27.448" transform="translate(389.591 666.091) rotate(45)" fill="none" stroke="#fff" stroke-width="2"/>
+      <line id="Line_4" data-name="Line 4" x2="27.448" transform="translate(419.592 685.5) rotate(-45)" fill="none" stroke="#fff" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
