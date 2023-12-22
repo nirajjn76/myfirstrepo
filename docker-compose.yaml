@@ -1,0 +1,18 @@
+version: "3.6"
+
+services:
+  frontend:    
+    image: wx-frontend
+    container_name: frontend
+    build: .      
+    ports:
+      - 8081:8081
+    restart: always            
+    networks:
+      - wx
+
+networks:
+  wx:
+    external:
+      name: wx
+

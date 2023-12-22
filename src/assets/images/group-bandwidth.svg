@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48.676" height="88" viewBox="0 0 48.676 88">
+  <g id="Group_841" data-name="Group 841" transform="translate(-659.324 -377)">
+    <g id="Group_4" data-name="Group 4" transform="translate(679.44 394.892) rotate(90)">
+      <line id="Line_3" data-name="Line 3" x2="27.448" transform="translate(0 19.409) rotate(-45)" fill="none" stroke="#fff" stroke-width="2"/>
+      <line id="Line_4" data-name="Line 4" x2="27.448" transform="translate(30 0) rotate(45)" fill="none" stroke="#fff" stroke-width="2"/>
+    </g>
+    <g id="Group_383" data-name="Group 383">
+      <rect id="Rectangle_348" data-name="Rectangle 348" width="32" height="88" transform="translate(676 377)" fill="#fff"/>
+      <path id="Union_6" data-name="Union 6" d="M4.3,18.056V14.617H1.719V12.038H0V0H18.056V12.038H16.337v2.579H13.757v3.439Z" transform="translate(682.973 383.915)" fill="#18ce00"/>
+      <path id="Union_7" data-name="Union 7" d="M4.3,18.056V14.617H1.719V12.038H0V0H18.056V12.038H16.337v2.579H13.757v3.439Z" transform="translate(682.973 410.569)" fill="#afafaf"/>
+      <path id="Union_33" data-name="Union 33" d="M4.3,18.056V14.617H1.719V12.038H0V0H18.056V12.038H16.337v2.579H13.757v3.439Z" transform="translate(682.973 437.222)" fill="#ebd02e"/>
+    </g>
+  </g>
+</svg>

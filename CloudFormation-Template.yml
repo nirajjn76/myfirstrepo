@@ -1,0 +1,355 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  This template deploys a VPC, with a pair of public, private and data subnets spread
+  across two Availability Zones. It deploys an Internet Gateway, with a default
+  route on the public subnets and NAT gateway and route for private subnet.
+Parameters:
+  VPCCIDR:
+    Description: "Please enter the IP range (CIDR notation) for this VPC"
+    Type: String
+    Default: 192.168.0.0/16
+  PublicSubnet1CIDR:
+    Description: "Please enter the IP range (CIDR notation) for the public subnet in the first Availability Zone"
+    Type: String
+    Default: 192.168.0.0/24
+  PublicSubnet2CIDR:
+    Description: "Please enter the IP range (CIDR notation) for the public subnet in the second Availability Zone"
+    Type: String
+    Default: 192.168.1.0/24
+  PublicSubnet3CIDR:
+    Description: "Please enter the IP range (CIDR notation) for the data subnet in the first Availability Zone"
+    Type: String
+    Default: 192.168.2.0/24
+  KeyName:
+    Description: Name of an existing EC2 KeyPair to enable SSH access to the instance
+    Type: AWS::EC2::KeyPair::KeyName
+    ConstraintDescription: must be the name of an existing EC2 KeyPair.
+  LatestAmiId:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/canonical/ubuntu/server/focal/stable/current/amd64/hvm/ebs-gp2/ami-id
+  DBPassword:
+    NoEcho: true
+    Description: The database admin account password
+    Type: String
+    MinLength: 1
+    MaxLength: 41
+    AllowedPattern: ^[a-zA-Z0-9]*$
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VPCCIDR
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-VPC
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}
+  GatewayToInternet:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
+  # Public Subnets Route Tables and routes
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-public
+  PublicSubnetsRoute:
+    Type: AWS::EC2::Route
+    DependsOn: GatewayToInternet
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  # Public Subnet 1
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Sub "${AWS::Region}b"
+      CidrBlock: !Ref PublicSubnet1CIDR
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-public-subnet-(AZ1)
+  PublicSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet1
+  # Public Subnet 2
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Sub "${AWS::Region}a"
+      CidrBlock: !Ref PublicSubnet2CIDR
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-public-subnet-(AZ2)
+  PublicSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet2
+  # Public Subnet3 for AZ
+  PublicSubnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: !Sub "${AWS::Region}c"
+      CidrBlock: !Ref PublicSubnet3CIDR
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-data-subnet-(AZ1)
+  EC2SecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "wx security group"
+      GroupName: !Sub ${AWS::StackName}-Security-Group-Jenkins
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        -
+          CidrIp: "27.109.19.106/32"
+          IpProtocol: "-1"
+        -
+          CidrIp: "103.8.149.58/32"
+          IpProtocol: "-1"
+
+      SecurityGroupEgress:
+        -
+          CidrIp: "0.0.0.0/0"
+          IpProtocol: "-1"
+  EC2SecurityGroup2:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "Created by RDS management console"
+      GroupName: !Sub ${AWS::StackName}-Security-Group-EC2-Aurora
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        -
+          CidrIp: "103.8.149.58/32"
+          IpProtocol: "-1"
+        -
+          CidrIp: "27.109.19.106/32"
+          IpProtocol: "-1"
+
+      SecurityGroupEgress:
+        -
+          CidrIp: "0.0.0.0/0"
+          IpProtocol: "-1"
+
+        
+  EC2InstanceJenkins:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-Jenkins-Ec2
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroup
+      SubnetId: !Ref PublicSubnet2
+      KeyName: !Ref KeyName
+      ImageId: !Ref LatestAmiId
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash -xe
+          sudo apt-get update
+          sudo apt install -y docker.io
+          sudo groupadd docker
+          sudo usermod -aG docker $USER  
+          newgrp docker        
+          sudo mkdir /home/ubuntu/jenkins-volume
+          sudo chown -R 1000:1000 jenkins-volume/
+          
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.large
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-Deploy-Ec2
+      SecurityGroupIds:
+        - !Ref EC2SecurityGroup2
+      SubnetId: !Ref PublicSubnet1
+      KeyName: !Ref KeyName
+      ImageId: !Ref LatestAmiId
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash -xe
+          sudo apt-get update
+          sudo apt install -y docker.io
+          sudo groupadd docker
+          sudo usermod -aG docker $USER
+          newgrp docker
+          sudo apt install -y docker-compose
+          sudo docker network create -d bridge wx
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: DB Subnet Group
+      SubnetIds:
+        - !Ref PublicSubnet1
+        - !Ref PublicSubnet2
+        - !Ref PublicSubnet3
+  Database:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      AvailabilityZones:
+        - !Sub "${AWS::Region}b"
+      DatabaseName: wavexchange
+      DBClusterIdentifier: wavexchange
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      EnableHttpEndpoint: "true"
+      Engine: aurora-mysql
+      EngineMode: serverless
+      MasterUsername: admin
+      MasterUserPassword: !Ref DBPassword
+      Port: 3306
+      ScalingConfiguration:
+        AutoPause: "true"
+        MaxCapacity: 2
+        MinCapacity: 1
+        SecondsUntilAutoPause: 300
+  ElasticLoadBalancingV2LoadBalancer:
+    Type: "AWS::ElasticLoadBalancingV2::LoadBalancer"
+    Properties:
+      Name: "wavexchange"
+      Scheme: "internet-facing"
+      Type: "application"
+      Subnets:
+      - !Ref PublicSubnet1
+      - !Ref PublicSubnet2
+      - !Ref PublicSubnet3
+      SecurityGroups:
+      - !Ref   EC2SecurityGroup2
+      IpAddressType: "ipv4"
+      LoadBalancerAttributes:
+      -
+        Key: "access_logs.s3.enabled"
+        Value: "false"
+      -
+        Key: "idle_timeout.timeout_seconds"
+        Value: "60"
+      -
+        Key: "deletion_protection.enabled"
+        Value: "false"
+      -
+        Key: "routing.http2.enabled"
+        Value: "true"
+      -
+        Key: "routing.http.drop_invalid_header_fields.enabled"
+        Value: "false"
+      -
+        Key: "routing.http.xff_client_port.enabled"
+        Value: "false"
+      -
+        Key: "routing.http.desync_mitigation_mode"
+        Value: "defensive"
+      -
+        Key: "waf.fail_open.enabled"
+        Value: "false"
+      -
+        Key: "routing.http.x_amzn_tls_version_and_cipher_suite.enabled"
+        Value: "false"
+  ElasticLoadBalancingV2Listener:
+    Type: "AWS::ElasticLoadBalancingV2::Listener"
+    Properties:
+      LoadBalancerArn: !Ref ElasticLoadBalancingV2LoadBalancer
+      Port: 8081
+      Protocol: "HTTP"
+      DefaultActions:
+      -
+        TargetGroupArn: !Ref ElasticLoadBalancingV2TargetGroup
+        Type: "forward"
+  ElasticLoadBalancingV2TargetGroup:
+    Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
+    Properties:
+      HealthCheckIntervalSeconds: 30
+      HealthCheckPath: "/"
+      Port: 8081
+      Protocol: "HTTP"
+      HealthCheckPort: "traffic-port"
+      HealthCheckProtocol: "HTTP"
+      HealthCheckTimeoutSeconds: 5
+      UnhealthyThresholdCount: 2
+      TargetType: "instance"
+      Matcher:
+        HttpCode: "200"
+      HealthyThresholdCount: 5
+      VpcId: !Ref VPC
+      Name: "ALB-FrontEnd"
+      HealthCheckEnabled: true
+      TargetGroupAttributes:
+      -
+        Key: "stickiness.enabled"
+        Value: "false"
+      -
+        Key: "deregistration_delay.timeout_seconds"
+        Value: "300"
+      -
+        Key: "stickiness.app_cookie.cookie_name"
+        Value: ""
+      -
+        Key: "stickiness.type"
+        Value: "lb_cookie"
+      -
+        Key: "stickiness.lb_cookie.duration_seconds"
+        Value: "86400"
+      -
+        Key: "slow_start.duration_seconds"
+        Value: "0"
+      -
+        Key: "stickiness.app_cookie.duration_seconds"
+        Value: "86400"
+      -
+        Key: "load_balancing.algorithm.type"
+        Value: "round_robin"
+      # Targets:
+      # -
+      #   Id: !Ref EC2Instance
+      #   Port: 8081
+Outputs:
+  InternetGateway:
+    Description: A reference to the IG
+    Value: !Ref InternetGateway
+  VPC:
+    Description: A reference to the created VPC
+    Value: !Ref VPC
+  PublicSubnets:
+    Description: A list of the public subnets
+    Value: !Join [",", [!Ref PublicSubnet1, !Ref PublicSubnet2]]
+  PublicSubnet1:
+    Description: A reference to the public subnet in the 1st Availability Zone
+    Value: !Ref PublicSubnet1
+  PublicSubnet2:
+    Description: A reference to the public subnet in the 2nd Availability Zone
+    Value: !Ref PublicSubnet2
+  PublicSubnet3:
+    Description: A reference to the DB subnet in the 3rd Availability Zone
+    Value: !Ref PublicSubnet3
+  RDSSubnetGroup:
+    Description: A reference to the RDS DB Subnet group
+    Value: !Ref DBSubnetGroup
+  LoadBalancer:
+    Description: A reference to the Application Load Balancer
+    Value: !Ref   ElasticLoadBalancingV2LoadBalancer
+  LoadBalancerUrl:
+    Description: The URL of the ALB
+    Value: !GetAtt   ElasticLoadBalancingV2LoadBalancer.DNSName
+  Listener:
+    Description: A reference to a port 8081 listener
+    Value: !Ref ElasticLoadBalancingV2Listener
